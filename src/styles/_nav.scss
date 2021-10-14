@@ -1,0 +1,32 @@
+.nav-container{
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    padding-top: 1rem;
+
+    button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 40px;
+        width: 110px;
+        background-color: white;
+        border-radius: 12px;
+        border: 2px solid black;
+
+        &:hover{
+            background-color: black;
+            color: white;
+        }
+
+        .icon-music{
+            margin: 0 8px 0 8px;
+        }
+
+        .nav-title{
+            font-size: 1rem;
+            font-weight: bold;
+        }
+
+    }
+}

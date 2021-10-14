@@ -1,18 +1,23 @@
 import React, {useState, useRef} from 'react'
 import useStateWithPromise from '../hooks/useStateWithPromise'
-import Seeker from './Seeker'
-import Controls from './Controls'
 import songList from '../static/data'
 
 // styles
 import '../styles/player.scss'
+import Seeker from './Seeker'
+import Controls from './Controls'
+import Nav from './Nav'
+
+//components
 import SongInfo from './SongInfo'
 import Library from './Library'
+import KeyboardControls from './KeyboardControls'
 
+const songs = songList()
 const Player = () => {
-    const [songs, setSongs] = useState(songList())
     const randomSong = Math.floor(Math.random() * ((songs.length - 1) + 1));
     const [currentSong, setCurrentSong] = useStateWithPromise(songs[randomSong])
+    const [navState, setNavState] = useState(false)     
 
     const [isPlaying, setIsPlaying] = useState(false)
     const [timeUpdate, setTimeUpdate] = useState({
@@ -23,7 +28,7 @@ const Player = () => {
     })
 
     const audioRef = useRef(null)
-    
+
     const handlePlay = () => {
         if(isPlaying){
             audioRef.current.pause()
@@ -38,7 +43,7 @@ const Player = () => {
     }
 
     const handleInitialLoad = ({target : player}) => {
-        console.log(player.duration)
+        // console.log(player.duration)
         setTimeUpdate({...timeUpdate, 
             totalTime : secondsToTime(player.duration),
             rawTotalTime : player.duration
@@ -52,15 +57,18 @@ const Player = () => {
 
     return (
         <div className='super-class'>
-            <Library songs={songs} setCurrentSong={setCurrentSong} audioRef={audioRef} setIsPlaying={setIsPlaying} currentSong={currentSong}/>
+            <Library songs={songs} setCurrentSong={setCurrentSong} audioRef={audioRef} 
+                setIsPlaying={setIsPlaying} currentSong={currentSong} navState={navState}/>
+            <Nav navState={navState} setNavState={setNavState}/>
             <SongInfo song={currentSong}/>
             <div className="song-controls">
-                <Seeker time={timeUpdate} handleManualSeek = {handleManualSeek}/>
-                <Controls isPlaying={isPlaying} handlePlay={handlePlay}/>
+                <Seeker time={timeUpdate} handleManualSeek = {handleManualSeek} currentSong={currentSong}/>
+                <Controls isPlaying={isPlaying} handlePlay={handlePlay} songs={songs} setCurrentSong={setCurrentSong}
+                     audioRef={audioRef} setIsPlaying={setIsPlaying} currentSong={currentSong}/>
             </div>
-            
             <audio ref={audioRef} src={currentSong.audio}
                 onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleInitialLoad}></audio>
+            <KeyboardControls isPlaying={isPlaying} setIsPlaying={setIsPlaying} audioRef={audioRef}/>
         </div>
     )   
 }

@@ -1,5 +1,7 @@
 
 @import 'library.scss';
+@import 'nav.scss';
+@import 'slider.scss';
 
 .song-info{
     // background: lemonchiffon;
@@ -35,11 +37,6 @@
     display: flex;
     width: 50%;
     align-items: center;
-
-    input{
-        width: 100%;
-        padding: 1rem;   
-    }
 
     p{
         padding : 1rem;
