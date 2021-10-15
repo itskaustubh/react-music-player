@@ -1,12 +1,13 @@
 import React from 'react'
 
-const LibraryCard = ({song,setCurrentSong,audioRef,setIsPlaying,currentSong}) => {
+const LibraryCard = ({song,setCurrentSong,audioRef,setIsPlaying,currentSong, setNavState}) => {
     const handleCardClick = () => {
         console.log(song.id)
         setCurrentSong(song).then(() => {
-            console.log('done')
+            // console.log('done')
             audioRef.current.play()
             setIsPlaying(true)
+            setNavState(false)
         })
     }
     return (

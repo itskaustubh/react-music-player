@@ -8,7 +8,7 @@ const Nav = ({navState, setNavState}) => {
     }
     return (
         <div className='nav-container'>
-            <button onClick={handleNavClick}>
+            <button onClick={handleNavClick} className={`nav-library-button ${navState? 'library-open' : ''}`}>
                 <FontAwesomeIcon icon={faMusic} className='icon-music'/>
                 <p className='nav-title'>Library</p>
             </button>   

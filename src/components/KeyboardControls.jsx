@@ -20,7 +20,6 @@ const KeyboardControls = ({setIsPlaying,isPlaying,audioRef}) => {
         }
     }
 
-
     return (<div></div>)
 }
 

@@ -8,18 +8,27 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-height: 60vh;
+    // min-height: 60vh;
     align-items: center;
     font-size: 1.5rem;
+    padding: 1.5rem;
+    text-align: center; 
+
 
     img{
-        width: 20%;
+        width: 15rem;
         border-radius: 30%;
+        transition: border-radius 0.4s ease ;
+
+        &:hover{
+            border-radius: 10%;
+        }
     }
 
     .song-name{
         margin-top: 25px;
     }
+
 }
 
 .song-controls{
@@ -27,9 +36,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;    
+    justify-content: center;    
     width: 100%;
-    min-height: 20vh;
+    // min-height: 20vh;
 }
 
 .seeker{
@@ -37,6 +46,7 @@
     display: flex;
     width: 50%;
     align-items: center;
+    font-weight: 600;
 
     p{
         padding : 1rem;
@@ -46,7 +56,9 @@
 .controls{
     // background: lightpink;
     display: flex;
-    min-height: 10vh;
+    // min-height: 10vh;
+    font-size: 1.4rem;
+    padding : 1.5rem;
     align-items: center;
     justify-content: space-evenly;
     width: 30%;
@@ -54,4 +66,59 @@
     svg{
         cursor: pointer;
     }
+
+    .controls-play{
+        margin : 0px 4rem 0 4rem
+    }
+}
+
+@media (max-width: 1024px) {
+    // .song-controls{
+    //     background: lightcoral;
+    // }
+    
+    .seeker{
+        width : 70%
+    }
+}
+
+@media (max-width: 768px) {
+    // .song-controls{
+    //     background: lightsalmon;
+    // }
+    .seeker{
+        width : 80%
+    }
+}
+
+@media (max-width: 600px) {
+    // .song-controls{
+    //     background: lightseagreen;
+    // }
+    .seeker{
+        width : 95%
+    }
+}
+
+@media (max-width: 480px) {
+    // .song-controls{
+    //     background: lemonchiffon;
+    // }
+    .seeker{
+        font-size: 14px;
+
+        .total-time{
+            padding: 1rem 0 1rem 0.5rem;
+        }
+        .current-time{
+            padding: 1rem 0.5rem 1rem 0;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    // .song-controls{
+    //     background: lightskyblue;
+    // }
+
 }

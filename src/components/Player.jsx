@@ -55,19 +55,32 @@ const Player = () => {
         audioRef.current.currentTime = rawCurrentTime
     }
 
+    const handleSongEnded = () => {
+        const currentSongIndex = songs.findIndex(song => song.id === currentSong.id)
+        const nextSongIndex = (currentSongIndex + 1) % (songs.length)
+        setCurrentSong(songs[nextSongIndex]).then(() => {
+            console.log('done')
+            if(isPlaying){
+                audioRef.current.play()
+                setIsPlaying(true)
+            } 
+        })
+    }
+
     return (
         <div className='super-class'>
             <Library songs={songs} setCurrentSong={setCurrentSong} audioRef={audioRef} 
-                setIsPlaying={setIsPlaying} currentSong={currentSong} navState={navState}/>
-            <Nav navState={navState} setNavState={setNavState}/>
+                setIsPlaying={setIsPlaying} currentSong={currentSong} navState={navState} setNavState={setNavState}/>
             <SongInfo song={currentSong}/>
             <div className="song-controls">
                 <Seeker time={timeUpdate} handleManualSeek = {handleManualSeek} currentSong={currentSong}/>
                 <Controls isPlaying={isPlaying} handlePlay={handlePlay} songs={songs} setCurrentSong={setCurrentSong}
                      audioRef={audioRef} setIsPlaying={setIsPlaying} currentSong={currentSong}/>
             </div>
+            <Nav navState={navState} setNavState={setNavState}/>
             <audio ref={audioRef} src={currentSong.audio}
-                onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleInitialLoad}></audio>
+                onTimeUpdate={handleTimeUpdate} onLoadedMetadata={handleInitialLoad} onEnded={handleSongEnded}></audio>
+
             <KeyboardControls isPlaying={isPlaying} setIsPlaying={setIsPlaying} audioRef={audioRef}/>
         </div>
     )   
