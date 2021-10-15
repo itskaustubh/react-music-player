@@ -1,3 +1,4 @@
+# don't forget to add 'homepage' property to package.json with the weblink to where this will deploy
 name: Build and Deploy
 on: [push]
 jobs:
