@@ -4,7 +4,7 @@ import {faChevronLeft, faPlay,faPause, faChevronRight} from '@fortawesome/free-s
 
 const Controls = ({isPlaying,handlePlay,songs,setCurrentSong,audioRef,setIsPlaying,currentSong}) => {
 
-    const handleControls= (direction) => {
+    const handleControls= async (direction) => {
 
         const currentSongIndex = songs.findIndex(song => song.id === currentSong.id)
 
@@ -14,13 +14,12 @@ const Controls = ({isPlaying,handlePlay,songs,setCurrentSong,audioRef,setIsPlayi
         }else{
             nextSongIndex = currentSongIndex === 0 ? songs.length - 1 : (currentSongIndex + -1) % (songs.length)
         }
-        setCurrentSong(songs[nextSongIndex]).then(() => {
-            console.log('done')
-            if(isPlaying){
-                audioRef.current.play()
-                setIsPlaying(true)
-            }
-        })
+        await setCurrentSong(songs[nextSongIndex])
+        console.log('done')
+        if(isPlaying){
+            audioRef.current.play()
+            setIsPlaying(true)
+        }
     }
 
     return (

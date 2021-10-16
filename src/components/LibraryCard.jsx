@@ -1,14 +1,13 @@
 import React from 'react'
 
 const LibraryCard = ({song,setCurrentSong,audioRef,setIsPlaying,currentSong, setNavState}) => {
-    const handleCardClick = () => {
+    const handleCardClick = async () => {
         console.log(song.id)
-        setCurrentSong(song).then(() => {
-            // console.log('done')
-            audioRef.current.play()
-            setIsPlaying(true)
-            setNavState(false)
-        })
+        await setCurrentSong(song)
+        // console.log('done')
+        audioRef.current.play()
+        setIsPlaying(true)
+        setNavState(false)
     }
     return (
         <div className={`library-card-container ${currentSong.id === song.id? 'card-selected' : ''}`} onClick={handleCardClick}>

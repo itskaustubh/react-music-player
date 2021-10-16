@@ -1,5 +1,4 @@
 import React, {useState, useRef} from 'react'
-import useStateWithPromise from '../hooks/useStateWithPromise'
 import songList from '../static/data'
 
 // styles
@@ -16,7 +15,7 @@ import KeyboardControls from './KeyboardControls'
 const songs = songList()
 const Player = () => {
     const randomSong = Math.floor(Math.random() * ((songs.length - 1) + 1));
-    const [currentSong, setCurrentSong] = useStateWithPromise(songs[randomSong])
+    const [currentSong, setCurrentSong] = useState(songs[randomSong])
     const [navState, setNavState] = useState(false)     
 
     const [isPlaying, setIsPlaying] = useState(false)
@@ -55,16 +54,15 @@ const Player = () => {
         audioRef.current.currentTime = rawCurrentTime
     }
 
-    const handleSongEnded = () => {
+    const handleSongEnded = async () => {
         const currentSongIndex = songs.findIndex(song => song.id === currentSong.id)
         const nextSongIndex = (currentSongIndex + 1) % (songs.length)
-        setCurrentSong(songs[nextSongIndex]).then(() => {
-            console.log('done')
-            if(isPlaying){
-                audioRef.current.play()
-                setIsPlaying(true)
-            } 
-        })
+        await setCurrentSong(songs[nextSongIndex])
+        // console.log('done')
+        if(isPlaying){
+            audioRef.current.play()
+            setIsPlaying(true)
+        } 
     }
 
     return (
